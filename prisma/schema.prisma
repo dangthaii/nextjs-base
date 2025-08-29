@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String    @id @default(uuid())
+  name               String?
+  username           String    @unique
+  password           String
+  needChangePassword Boolean   @default(false)
+  refreshToken       String?
+  role               String? // "admin" or null
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
